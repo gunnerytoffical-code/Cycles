@@ -9,8 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,6 +35,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CyclesScreen() {
+
+    var epsilon by remember { mutableStateOf("0.001") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,6 +60,15 @@ fun CyclesScreen() {
             text = "S = 1/4 + 1/9 + 1/16 + 1/25 + ...",
             modifier = Modifier.padding(top = 24.dp),
             style = MaterialTheme.typography.bodyLarge
+        )
+
+        OutlinedTextField(
+            value = epsilon,
+            onValueChange = { epsilon = it },
+            label = { Text("Точность ε") },
+            placeholder = { Text("Например, 0.001") },
+            modifier = Modifier.padding(top = 20.dp),
+            singleLine = true
         )
     }
 }
