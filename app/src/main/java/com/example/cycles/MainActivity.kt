@@ -14,6 +14,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,6 +40,9 @@ class MainActivity : ComponentActivity() {
 fun CyclesScreen() {
 
     var epsilon by remember { mutableStateOf("0.001") }
+    var sum by remember { mutableDoubleStateOf(0.0) }
+    var lastTerm by remember { mutableDoubleStateOf(0.0) }
+    var iterations by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -73,7 +78,28 @@ fun CyclesScreen() {
         )
 
         Button(
-            onClick = { },
+            onClick = {val accuracy = epsilon.replace(',', '.').toDoubleOrNull()
+
+                if (accuracy != null && accuracy > 0.0 &&
+                    accuracy.isFinite()
+                ) {
+                    var n = 2
+                    var term = 1.0 / (n * n)
+                    var total = 0.0
+                    var count = 0
+
+                    while (kotlin.math.abs(term) >= accuracy) {
+                        total += term
+                        count++
+
+                        n++
+                        term = 1.0 / (n * n)
+                    }
+
+                    sum = total
+                    lastTerm = term
+                    iterations = count
+                } },
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text("Вычислить сумму")
