@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -70,5 +71,12 @@ fun CyclesScreen() {
             modifier = Modifier.padding(top = 20.dp),
             singleLine = true
         )
+
+        Button(
+            onClick = { },
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text("Вычислить сумму")
+        }
     }
 }
