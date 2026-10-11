@@ -43,6 +43,7 @@ fun CyclesScreen() {
     var sum by remember { mutableDoubleStateOf(0.0) }
     var lastTerm by remember { mutableDoubleStateOf(0.0) }
     var iterations by remember { mutableIntStateOf(0) }
+    var hasCalculated by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -99,10 +100,34 @@ fun CyclesScreen() {
                     sum = total
                     lastTerm = term
                     iterations = count
+                    hasCalculated = true
                 } },
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text("Вычислить сумму")
+        }
+
+        if (hasCalculated) {
+            Column(
+                modifier = Modifier.padding(top = 24.dp)
+            ) {
+                Text(
+                    text = "Сумма ряда: %.6f".format(sum),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Text(
+                    text = "Последнее слагаемое: %.8f".format(lastTerm),
+                    modifier = Modifier.padding(top = 8.dp),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Text(
+                    text = "Количество итераций: $iterations",
+                    modifier = Modifier.padding(top = 8.dp),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
         }
     }
 }
